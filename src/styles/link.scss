@@ -1,0 +1,14 @@
+Link,
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.item__link {
+  width: 100%;
+  .link__name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    width: 100%;
+  }
+}

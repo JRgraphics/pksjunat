@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { AnimatedSwitch } from "react-router-transition";
+import "./App.css";
+import Div100vh from "react-div-100vh";
+
+import Home from "./components/pages/Home/Home";
+import Station from "./components/pages/Station/Station";
+import Header from "./components/Header";
 
 function App() {
+  const [timeValue, setTimeValue] = useState(new Date());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Div100vh className="App">
+      <Router>
+        <Header
+          timeChange={(time) => {
+            setTimeValue(time);
+          }}
+        />
+        <AnimatedSwitch
+          atEnter={{ opacity: 0 }}
+          atLeave={{ opacity: 0 }}
+          atActive={{ opacity: 1 }}
+          className="switch-wrapper"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path="/station/:id">
+            <Station />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </AnimatedSwitch>
+      </Router>
+    </Div100vh>
   );
 }
 
