@@ -1,0 +1,4 @@
+// Favourites
+
+export const GET_FAVOURITES = "GET_FAVOURITES";
+export const UPDATE_FAVOURITES = "UPDATE_FAVOURITES";

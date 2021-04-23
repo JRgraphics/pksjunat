@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLazyQuery } from "@apollo/client";
-import { query, scheduleQuery } from "../../../querys";
-import StationList from "../../lists/stations/StationList";
-import Header from "../../Header";
-import SearchBar from "../../SearchBar";
+
+// Components
 import Loading from "../../Loading";
+import SearchBar from "../../SearchBar";
+import StationList from "../../lists/stations/StationList";
+
+// Querys
+import { useLazyQuery } from "@apollo/client";
+import { query } from "../../../querys";
 
 const Home = () => {
   // HSL Queries
@@ -12,7 +15,6 @@ const Home = () => {
 
   // State hooks
   const [searchFilter, setSearchFilter] = useState("");
-  const [timeResetInterval, setTimeResetInterval] = useState(new Date());
 
   // Ref hooks
   const fetchButton = useRef(null);

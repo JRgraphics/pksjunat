@@ -1,14 +1,33 @@
 Link,
 a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
 }
 
 .item__link {
   width: 100%;
-  .link__name {
-    font-size: 1.8rem;
-    font-weight: 600;
-    width: 100%;
+  .link {
+    &__name {
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 5px 0;
+      width: 100%;
+    }
+    &__time-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 5px 0;
+      width: 100%;
+    }
+
+    &__description {
+      display: flex;
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+    &__time,
+    &__track {
+      margin: 0 10px;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   convertHSLTimeToReal,
   getNormalizedTime,
@@ -8,8 +8,8 @@ const StationScheduleList = ({ data }) => {
   return (
     <ul className="schedule__list list">
       {data.station?.stoptimesWithoutPatterns?.map((item, index) => (
-        <li className="list__item">
-          <div>
+        <li key={index} className="list__item">
+          <div className="item__time">
             {getNormalizedTime(item.scheduledDeparture)}{" "}
             {item.scheduledDeparture < item.realtimeDeparture &&
             convertHSLTimeToReal(item.scheduledDeparture).getMinutes() !==
@@ -18,8 +18,11 @@ const StationScheduleList = ({ data }) => {
                 {" ~ " + getNormalizedTime(item.realtimeDeparture)}
               </span>
             ) : null}
+            <div>{item.headsign + " " + item.trip?.route?.shortName}</div>
           </div>
-          {item.headsign + " " + item?.stop?.platformCode}
+          <div className="item__track">
+            {"Raide " + item?.stop?.platformCode}
+          </div>
         </li>
       ))}
     </ul>

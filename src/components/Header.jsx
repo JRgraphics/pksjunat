@@ -1,18 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, withRouter } from "react-router-dom";
-import Clock from "react-clock";
-import "react-clock/dist/Clock.css";
-import Button from "./Button";
+import { useHistory, withRouter } from "react-router-dom";
 
-const Header = ({ timeChange }) => {
+// Components
+import Button from "./Button";
+import Clock from "react-clock";
+
+// Redux
+import { getFavourites, updateFavourites } from "../actions";
+import { useSelector, useDispatch } from "react-redux";
+
+// Styles
+import "react-clock/dist/Clock.css";
+import { putFrontZeroes } from "../dateTimeconverers";
+import FavouriteButton from "./FavouriteButton";
+
+const Header = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [value, setValue] = useState(new Date());
+
+  const favourites = useSelector((state) => state.favourite.favourites);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setValue(new Date());
-      timeChange(new Date());
     }, 1000);
+    dispatch(getFavourites());
 
     return () => {
       clearInterval(interval);
@@ -21,15 +34,26 @@ const Header = ({ timeChange }) => {
 
   return (
     <div className="header">
-      <Clock value={value} renderNumbers={true} />
-      {!!localStorage.getItem("favourites") ? (
-        <Button
-          buttonText={localStorage.getItem("favourites")}
-          onClick={() =>
-            history.push("/station/" + localStorage.getItem("favourites"))
-          }
-        />
-      ) : null}
+      <div className="header__container">
+        <div className="header__clock">
+          {putFrontZeroes(value.getHours()) +
+            ":" +
+            putFrontZeroes(value.getMinutes()) +
+            ":" +
+            putFrontZeroes(value.getSeconds())}
+        </div>
+      </div>
+      <div className="header__container">
+        {!!favourites
+          ? favourites?.map((item, index) => (
+              <FavouriteButton
+                item={item}
+                onClick={() => history.push("/station/" + item.id)}
+                onDelete={() => dispatch(updateFavourites(item.name, item.id))}
+              />
+            ))
+          : null}
+      </div>
     </div>
   );
 };

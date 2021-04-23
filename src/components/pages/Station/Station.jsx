@@ -1,17 +1,27 @@
 import React, { useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
-import { scheduleQuery } from "../../../querys";
-import Loading from "../../Loading";
-import {
-  convertHSLTimeToReal,
-  getNormalizedTime,
-} from "../../../dateTimeconverers";
-import StationScheduleList from "./StationScheduleList";
-import Button from "../../Button";
 
-const Station = ({ ...props }) => {
+// Components
+import Button from "../../Button";
+import Loading from "../../Loading";
+import StationScheduleList from "./StationScheduleList";
+
+// Querys
+import { scheduleQuery } from "../../../querys";
+
+// Redux
+import { updateFavourites } from "../../../actions";
+import Return from "../../icons/Return";
+import AddFavourite from "../../icons/AddFavourite";
+import DeleteFavourite from "../../icons/DeleteFavourite";
+
+const Station = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const favourites = useSelector((state) => state.favourite.favourites);
 
   // UseEffect hooks
   useEffect(() => {
@@ -49,10 +59,23 @@ const Station = ({ ...props }) => {
             onClick={() => refetch()}
           ></button>
           <div className="station__header">
-            {data.station?.name}
+            <Link to="/">
+              <Button
+                buttonClassName={"button--transparent"}
+                buttonText={<Return className="icon__return" />}
+              />
+            </Link>
+            <div className="header__name">{data.station?.name}</div>
             <Button
-              buttonText={"Lisää suosikkeihin"}
-              onClick={() => localStorage.setItem("favourites", id)}
+              buttonClassName={"button--transparent"}
+              buttonText={
+                favourites?.find((item) => item.id === id) ? (
+                  <DeleteFavourite className="icon__favourite" />
+                ) : (
+                  <AddFavourite className="icon__favourite" />
+                )
+              }
+              onClick={() => dispatch(updateFavourites(data.station?.name, id))}
             />
           </div>
           <StationScheduleList data={data} />

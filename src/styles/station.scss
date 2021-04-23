@@ -1,0 +1,12 @@
+.station {
+  &__header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    .header {
+      &__name {
+        font-size: 2rem;
+      }
+    }
+  }
+}
