@@ -44,9 +44,11 @@ const Header = () => {
         </div>
       </div>
       <div className="header__container">
+        <div className="header__title">Favourites</div>
         {!!favourites
           ? favourites?.map((item, index) => (
               <FavouriteButton
+                key={index}
                 item={item}
                 onClick={() => history.push("/station/" + item.id)}
                 onDelete={() => dispatch(updateFavourites(item.name, item.id))}

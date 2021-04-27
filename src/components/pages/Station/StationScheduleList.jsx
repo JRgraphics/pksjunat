@@ -18,8 +18,11 @@ const StationScheduleList = ({ data }) => {
                 {" ~ " + getNormalizedTime(item.realtimeDeparture)}
               </span>
             ) : null}
-            <div>{item.headsign + " " + item.trip?.route?.shortName}</div>
           </div>
+          <div className="item__track">
+            {item.headsign + " " + item.trip?.route?.shortName}
+          </div>
+
           <div className="item__track">
             {"Raide " + item?.stop?.platformCode}
           </div>

@@ -76,6 +76,10 @@ const Station = () => {
                 )
               }
               onClick={() => dispatch(updateFavourites(data.station?.name, id))}
+              disabled={
+                favourites?.length >= 2 &&
+                favourites?.findIndex((item) => item.id === id) == -1
+              }
             />
           </div>
           <StationScheduleList data={data} />

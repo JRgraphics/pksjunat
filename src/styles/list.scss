@@ -8,11 +8,11 @@
 }
 
 .station-list {
-  height: calc(100% - 35px);
+  height: calc(100% - 56px);
   &__item {
     background: #000;
-    box-shadow: inset -2px -2px 15px rgba(255, 255, 255, 0.4);
-    padding: 30px 15px;
+    box-shadow: inset -2px -2px 15px #ffffff63;
+    padding: 30px 25px;
     .item {
       &__button {
         background: transparent;
@@ -26,16 +26,39 @@
 }
 
 .schedule__list {
-  height: calc(100% - 35px);
-
+  height: calc(100% - 56px);
   .list__item {
+    align-items: center;
+    display: flex;
     padding: 20px;
     .item {
       &__time {
+        flex: 1;
         font-size: 1.8rem;
       }
       &__track {
+        flex: 1;
         font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .schedule__list {
+    .list__item {
+      align-items: center;
+      display: flex;
+      padding: 10px;
+      .item {
+        &__time {
+          flex: 1;
+          font-size: 1.5rem;
+        }
+        &__track {
+          flex: 1;
+          font-size: 1.1rem;
+        }
       }
     }
   }
